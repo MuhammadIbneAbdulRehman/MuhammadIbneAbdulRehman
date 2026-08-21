@@ -1,780 +1,315 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muhammad - Full Stack Developer</title>
-    <style>
-        /* ===== RESET & BASE ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            color: #e0e0e0;
-            line-height: 1.7;
-            padding: 40px 20px;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 24px;
-            padding: 50px 60px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        /* ===== TYPOGRAPHY ===== */
-        h1 {
-            font-size: 2.8rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #f093fb, #f5576c, #4facfe);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-align: center;
-            margin-bottom: 4px;
-        }
-
-        h2 {
-            font-size: 2rem;
-            font-weight: 600;
-            color: #f0f0f0;
-            margin: 40px 0 16px 0;
-            padding-bottom: 10px;
-            border-bottom: 2px solid rgba(79, 172, 254, 0.3);
-        }
-
-        h2 .emoji {
-            -webkit-text-fill-color: initial;
-        }
-
-        h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #c8d6e5;
-            margin: 28px 0 10px 0;
-        }
-
-        h4 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #a8c8e8;
-            margin: 20px 0 6px 0;
-        }
-
-        p {
-            margin-bottom: 12px;
-            color: #d0d0d0;
-        }
-
-        a {
-            color: #4facfe;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        a:hover {
-            color: #f5576c;
-            text-decoration: underline;
-        }
-
-        /* ===== SUBTITLE ===== */
-        .subtitle {
-            text-align: center;
-            font-size: 1.2rem;
-            color: #b0b0b0;
-            margin-bottom: 10px;
-            font-weight: 300;
-            letter-spacing: 0.5px;
-        }
-
-        /* ===== BADGES ===== */
-        .badge-container {
-            text-align: center;
-            margin: 20px 0 10px 0;
-        }
-
-        .badge-container a {
-            display: inline-block;
-            margin: 4px 6px;
-            transition: transform 0.2s ease;
-        }
-
-        .badge-container a:hover {
-            transform: translateY(-2px);
-        }
-
-        .badge-container img {
-            border-radius: 6px;
-        }
-
-        /* ===== STATS ROW ===== */
-        .stats-row {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin: 20px 0 10px 0;
-        }
-
-        .stats-row img {
-            border-radius: 6px;
-        }
-
-        /* ===== SKILLS GRID ===== */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            margin: 20px 0 10px 0;
-        }
-
-        .skill-card {
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 16px;
-            padding: 20px 24px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            transition: all 0.3s ease;
-        }
-
-        .skill-card:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(79, 172, 254, 0.3);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5);
-        }
-
-        .skill-card h4 {
-            margin-top: 0;
-            color: #f0f0f0;
-        }
-
-        .skill-card .skill-desc {
-            font-size: 0.9rem;
-            color: #999;
-            margin-bottom: 10px;
-        }
-
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .skill-tags span {
-            background: rgba(79, 172, 254, 0.15);
-            color: #b0d4f0;
-            padding: 4px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            border: 1px solid rgba(79, 172, 254, 0.1);
-        }
-
-        /* ===== PROJECTS ===== */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 28px;
-            margin: 20px 0 10px 0;
-        }
-
-        .project-card {
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 16px;
-            padding: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            transition: all 0.3s ease;
-        }
-
-        .project-card:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(79, 172, 254, 0.25);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5);
-        }
-
-        .project-card .featured {
-            display: inline-block;
-            background: rgba(245, 87, 108, 0.2);
-            color: #f5576c;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 2px 12px;
-            border-radius: 12px;
-            margin-bottom: 8px;
-            border: 1px solid rgba(245, 87, 108, 0.2);
-        }
-
-        .project-card h3 {
-            margin-top: 0;
-            margin-bottom: 6px;
-            color: #f0f0f0;
-        }
-
-        .project-card p {
-            font-size: 0.95rem;
-            color: #b0b0b0;
-            margin-bottom: 12px;
-        }
-
-        .project-card .tech-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin: 10px 0 14px 0;
-        }
-
-        .project-card .tech-tags span {
-            background: rgba(255, 255, 255, 0.06);
-            color: #c0c0c0;
-            padding: 2px 12px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .project-card .project-links a {
-            font-size: 0.9rem;
-            margin-right: 16px;
-        }
-
-        /* ===== EXPERIENCE & EDUCATION ===== */
-        .exp-item, .edu-item {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
-            padding: 18px 24px;
-            margin-bottom: 16px;
-            border-left: 3px solid #4facfe;
-            transition: all 0.3s ease;
-        }
-
-        .exp-item:hover, .edu-item:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-left-color: #f5576c;
-        }
-
-        .exp-item .meta, .edu-item .meta {
-            font-size: 0.85rem;
-            color: #888;
-            margin-bottom: 4px;
-        }
-
-        .exp-item ul, .edu-item ul {
-            list-style: none;
-            padding-left: 0;
-            margin-top: 8px;
-        }
-
-        .exp-item ul li, .edu-item ul li {
-            padding: 2px 0 2px 20px;
-            position: relative;
-            color: #c0c0c0;
-            font-size: 0.95rem;
-        }
-
-        .exp-item ul li::before, .edu-item ul li::before {
-            content: "▸";
-            position: absolute;
-            left: 0;
-            color: #4facfe;
-        }
-
-        /* ===== CONTACT TABLE ===== */
-        .contact-table {
-            width: 100%;
-            max-width: 500px;
-            margin: 16px auto;
-            border-collapse: collapse;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
-        .contact-table td {
-            padding: 12px 18px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            color: #c0c0c0;
-        }
-
-        .contact-table td:first-child {
-            font-weight: 600;
-            color: #a0b0c0;
-            width: 80px;
-        }
-
-        .contact-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        /* ===== FOOTER ===== */
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .footer .heart {
-            color: #f5576c;
-        }
-
-        .quote {
-            text-align: center;
-            font-size: 1.1rem;
-            font-style: italic;
-            color: #a0b0c0;
-            margin: 30px 0 10px 0;
-            padding: 16px;
-            border-left: 3px solid #4facfe;
-            border-right: 3px solid #4facfe;
-            background: rgba(79, 172, 254, 0.05);
-            border-radius: 8px;
-        }
-
-        /* ===== DIVIDER ===== */
-        hr {
-            border: none;
-            height: 1px;
-            background: linear-gradient(to right, transparent, rgba(79, 172, 254, 0.3), transparent);
-            margin: 40px 0;
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            .container {
-                padding: 24px 20px;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-
-            h2 {
-                font-size: 1.5rem;
-            }
-
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .stats-row {
-                gap: 10px;
-            }
-
-            .stats-row img {
-                width: 100%;
-                max-width: 300px;
-            }
-
-            .contact-table td {
-                padding: 8px 12px;
-                font-size: 0.9rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 16px 12px;
-            }
-
-            h1 {
-                font-size: 1.6rem;
-            }
-
-            .badge-container a {
-                display: inline-block;
-                margin: 3px;
-            }
-
-            .badge-container img {
-                max-width: 140px;
-            }
-        }
-
-        /* ===== SCROLLBAR ===== */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(79, 172, 254, 0.3);
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(79, 172, 254, 0.5);
-        }
-    </style>
-</head>
-<body>
-
-<div class="container">
-
-    <!-- ===== HEADER ===== -->
-    <h1>Hi 👋, I'm Muhammad</h1>
-    <p class="subtitle">Full Stack Developer | MERN Stack Specialist | BSCS Student</p>
-
-    <!-- ===== TYPING ANIMATION ===== -->
-    <p align="center">
-        <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&width=435&lines=Full+Stack+Developer;MERN+Stack+Specialist;Building+Exceptional+Digital+Experiences;Open+to+New+Opportunities" alt="Typing SVG">
-    </p>
-
-    <!-- ===== BADGES ===== -->
-    <div class="badge-container">
-        <a href="mailto:muhammadcaptain303@gmail.com">
-            <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email">
+<!-- ===== HEADER ===== -->
+<h1 align="center">Hi 👋, I'm Muhammad</h1>
+<h3 align="center">Full Stack Developer | MERN Stack Specialist | BSCS Student</h3>
+
+<!-- ===== TYPING ANIMATION ===== -->
+<p align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&width=435&lines=Full+Stack+Developer;MERN+Stack+Specialist;Building+Exceptional+Digital+Experiences;Open+to+New+Opportunities" alt="Typing SVG">
+</p>
+
+<!-- ===== BADGES ===== -->
+<p align="center">
+  <a href="mailto:muhammadcaptain303@gmail.com">
+    <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email">
+  </a>
+  <a href="#">
+    <img src="https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Portfolio">
+  </a>
+  <a href="https://github.com/your-username">
+    <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
+  </a>
+</p>
+
+<!-- ===== PROFILE VIEWS ===== -->
+<p align="center">
+  <img src="https://komarev.com/ghpvc/?username=your-username&label=Profile%20Views&color=0e75b6&style=flat" alt="Profile Views">
+</p>
+
+---
+
+## 🧑‍💻 About Me
+
+I am a passionate **Full Stack Developer** with expertise in the **MERN stack** and a keen eye for creating immersive web experiences. Currently pursuing my **BSCS degree at Education University, Lahore**, I combine academic knowledge with practical experience to build applications that are not just functional, but exceptional.
+
+From developing coworking space platforms to creating AI-powered business card scanners, I thrive on turning complex problems into elegant solutions. My journey includes internships at **Prime Consultants** where I honed my skills in real-world project development.
+
+<!-- ===== STATS ROW ===== -->
+<p align="center">
+  <img src="https://img.shields.io/badge/Projects_Completed-10+-blue?style=for-the-badge" alt="Projects">
+  <img src="https://img.shields.io/badge/Experience-3%2B_Years-green?style=for-the-badge" alt="Experience">
+  <img src="https://img.shields.io/badge/Client_Satisfaction-100%25-brightgreen?style=for-the-badge" alt="Satisfaction">
+</p>
+
+---
+
+## 🚀 Tech Stack
+
+<!-- ===== SKILLS TABLE ===== -->
+<table>
+  <tr>
+    <td width="33%" valign="top">
+      <h3>🎨 Frontend</h3>
+      <p><em>Building responsive and interactive user interfaces</em></p>
+      <p>
+        <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black" alt="React">
+        <img src="https://img.shields.io/badge/Next.js-000000?style=flat&logo=next.js&logoColor=white" alt="Next.js">
+        <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white" alt="TypeScript">
+        <img src="https://img.shields.io/badge/TailwindCSS-06B6D4?style=flat&logo=tailwindcss&logoColor=white" alt="TailwindCSS">
+        <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white" alt="HTML5">
+        <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white" alt="CSS3">
+      </p>
+    </td>
+    <td width="33%" valign="top">
+      <h3>⚙️ Backend</h3>
+      <p><em>Creating robust server-side applications</em></p>
+      <p>
+        <img src="https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white" alt="Node.js">
+        <img src="https://img.shields.io/badge/Express.js-000000?style=flat&logo=express&logoColor=white" alt="Express.js">
+        <img src="https://img.shields.io/badge/REST_API-FF6C37?style=flat&logo=postman&logoColor=white" alt="REST API">
+        <img src="https://img.shields.io/badge/GraphQL-E10098?style=flat&logo=graphql&logoColor=white" alt="GraphQL">
+      </p>
+    </td>
+    <td width="33%" valign="top">
+      <h3>🗄️ Databases</h3>
+      <p><em>Designing and optimizing data structures</em></p>
+      <p>
+        <img src="https://img.shields.io/badge/MongoDB-47A248?style=flat&logo=mongodb&logoColor=white" alt="MongoDB">
+        <img src="https://img.shields.io/badge/Mongoose-880000?style=flat&logo=mongoose&logoColor=white" alt="Mongoose">
+        <img src="https://img.shields.io/badge/PostgreSQL-336791?style=flat&logo=postgresql&logoColor=white" alt="PostgreSQL">
+        <img src="https://img.shields.io/badge/Redis-DC382D?style=flat&logo=redis&logoColor=white" alt="Redis">
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td width="33%" valign="top">
+      <h3>🔐 Auth & Security</h3>
+      <p><em>Implementing secure user authentication</em></p>
+      <p>
+        <img src="https://img.shields.io/badge/JWT-000000?style=flat&logo=json-web-tokens&logoColor=white" alt="JWT">
+        <img src="https://img.shields.io/badge/OAuth-3E8E41?style=flat&logo=oauth&logoColor=white" alt="OAuth">
+        <img src="https://img.shields.io/badge/Google_Auth-4285F4?style=flat&logo=google&logoColor=white" alt="Google Auth">
+        <img src="https://img.shields.io/badge/GitHub_Auth-181717?style=flat&logo=github&logoColor=white" alt="GitHub Auth">
+        <img src="https://img.shields.io/badge/Bcrypt-00599C?style=flat&logo=lock&logoColor=white" alt="Bcrypt">
+      </p>
+    </td>
+    <td width="33%" valign="top">
+      <h3>📦 CMS & Platforms</h3>
+      <p><em>Working with content management systems</em></p>
+      <p>
+        <img src="https://img.shields.io/badge/WordPress-21759B?style=flat&logo=wordpress&logoColor=white" alt="WordPress">
+        <img src="https://img.shields.io/badge/Wix-0C6EFC?style=flat&logo=wix&logoColor=white" alt="Wix">
+        <img src="https://img.shields.io/badge/Shopify-7AB55C?style=flat&logo=shopify&logoColor=white" alt="Shopify">
+        <!-- <img src="https://img.shields.io/badge/Webflow-4353FF?style=flat&logo=webflow&logoColor=white" alt="Webflow"> -->
+      </p>
+    </td>
+    <td width="33%" valign="top">
+      <h3>🛠️ Tools</h3>
+      <p><em>Utilizing modern development workflows</em></p>
+      <p>
+        <img src="https://img.shields.io/badge/VS_Code-007ACC?style=flat&logo=visual-studio-code&logoColor=white" alt="VS Code">
+        <img src="https://img.shields.io/badge/Cursor-000000?style=flat&logo=cursor&logoColor=white" alt="Cursor">
+        <img src="https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white" alt="Git">
+        <img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white" alt="GitHub">
+        <!-- <img src="https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white" alt="Docker"> -->
+        <img src="https://img.shields.io/badge/Postman-FF6C37?style=flat&logo=postman&logoColor=white" alt="Postman">
+      </p>
+    </td>
+  </tr>
+</table>
+
+---
+
+## 🏗️ Featured Projects
+
+<!-- ===== PROJECTS TABLE ===== -->
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>🏢 COZONES</h3>
+      <p><strong>⭐ Featured</strong></p>
+      <p>A comprehensive coworking space rental platform where users can discover, book, and manage workspace rentals on hourly, daily, or monthly basis.</p>
+      <p>
+        <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black" alt="React">
+        <img src="https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white" alt="Node.js">
+        <img src="https://img.shields.io/badge/MongoDB-47A248?style=flat&logo=mongodb&logoColor=white" alt="MongoDB">
+        <img src="https://img.shields.io/badge/Express-000000?style=flat&logo=express&logoColor=white" alt="Express">
+      </p>
+      <p>
+        <a href="#">🔗 Live Demo</a> · 
+        <a href="#">📂 Repository</a>
+      </p>
+    </td>
+    <td width="50%" valign="top">
+      <h3>🏗️ Prime Consultants</h3>
+      <p><strong>⭐ Featured</strong></p>
+      <p>A professional construction consultancy website featuring services showcase, project portfolio, and an innovative cost calculator.</p>
+      <p>
+        <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black" alt="React">
+        <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black" alt="JavaScript">
+        <img src="https://img.shields.io/badge/CSS-1572B6?style=flat&logo=css3&logoColor=white" alt="CSS">
+        <img src="https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white" alt="Node.js">
+      </p>
+      <p>
+        <a href="#">🔗 Live Demo</a> · 
+        <a href="#">📂 Repository</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>📇 Card Scan Pro</h3>
+      <p><strong>⭐ Featured</strong></p>
+      <p>An AI-powered business card scanner application using Gemini API that automatically extracts and organizes contact information.</p>
+      <p>
+        <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black" alt="React">
+        <img src="https://img.shields.io/badge/Gemini_API-8E75B2?style=flat&logo=google&logoColor=white" alt="Gemini API">
+        <img src="https://img.shields.io/badge/OCR-000000?style=flat&logo=tesseract&logoColor=white" alt="OCR">
+        <img src="https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white" alt="Node.js">
+      </p>
+      <p>
+        <a href="#">🔗 Live Demo</a> · 
+        <a href="#">📂 Repository</a>
+      </p>
+    </td>
+    <td width="50%" valign="top">
+      <h3>🔍 Prime Assessment Services</h3>
+      <p>A comprehensive house inspection application with structured workflows for property assessments and detailed reporting.</p>
+      <p>
+        <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black" alt="React">
+        <img src="https://img.shields.io/badge/MongoDB-47A248?style=flat&logo=mongodb&logoColor=white" alt="MongoDB">
+        <img src="https://img.shields.io/badge/Express-000000?style=flat&logo=express&logoColor=white" alt="Express">
+        <img src="https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white" alt="Node.js">
+      </p>
+      <p>
+        <a href="#">🔗 Live Demo</a> · 
+        <a href="#">📂 Repository</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>🏗️ Case Forte Global</h3>
+      <p>A building materials e-commerce platform with organized product catalogs and streamlined procurement workflows.</p>
+      <p>
+        <img src="https://img.shields.io/badge/WordPress-21759B?style=flat&logo=wordpress&logoColor=white" alt="WordPress">
+        <img src="https://img.shields.io/badge/WooCommerce-96588A?style=flat&logo=woocommerce&logoColor=white" alt="WooCommerce">
+        <img src="https://img.shields.io/badge/PHP-777BB4?style=flat&logo=php&logoColor=white" alt="PHP">
+        <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white" alt="MySQL">
+      </p>
+      <p>
+        <a href="#">🔗 Live Demo</a> · 
+        <a href="#">📂 Repository</a>
+      </p>
+    </td>
+    <td width="50%" valign="top">
+      <h3>📌 More Projects</h3>
+      <p>Check out my GitHub repositories for more projects and contributions!</p>
+      <br>
+      <p>
+        <a href="https://github.com/your-username?tab=repositories">
+          <img src="https://img.shields.io/badge/View_All_Projects-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
         </a>
-        <a href="#">
-            <img src="https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Portfolio">
-        </a>
-        <a href="https://github.com/your-username">
-            <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
-        </a>
-    </div>
+      </p>
+    </td>
+  </tr>
+</table>
 
-    <!-- ===== PROFILE VIEWS ===== -->
-    <p align="center">
-        <img src="https://komarev.com/ghpvc/?username=your-username&label=Profile%20Views&color=0e75b6&style=flat" alt="Profile Views">
-    </p>
+---
 
-    <hr>
+## 💼 Experience
 
-    <!-- ===== ABOUT ME ===== -->
-    <h2>🧑‍💻 About Me</h2>
+### 💻 Web Developer Intern
+**Prime Consultants** · Lahore, Pakistan  
+*2023 - Present*
 
-    <p>
-        I am a passionate <strong>Full Stack Developer</strong> with expertise in the <strong>MERN stack</strong> and a keen eye for creating immersive web experiences. Currently pursuing my <strong>BSCS degree at Education University, Lahore</strong>, I combine academic knowledge with practical experience to build applications that are not just functional, but exceptional.
-    </p>
+Working as a Web Developer Intern, responsible for developing and maintaining multiple client projects including construction consultancy platforms, coworking space marketplaces, and AI-powered applications.
 
-    <p>
-        From developing coworking space platforms to creating AI-powered business card scanners, I thrive on turning complex problems into elegant solutions. My journey includes internships at <strong>Prime Consultants</strong> where I honed my skills in real-world project development.
-    </p>
+**Key Projects:**
+- 🏢 **COZONES** - Coworking space rental platform
+- 🏗️ **Prime Consultants** - Construction consultancy website
+- 📇 **Card Scan Pro** - AI business card scanner
+- 🔍 **Prime Assessment** - House inspection application
 
-    <!-- ===== STATS ROW ===== -->
-    <div class="stats-row">
-        <img src="https://img.shields.io/badge/Projects_Completed-10+-blue?style=for-the-badge" alt="Projects">
-        <img src="https://img.shields.io/badge/Experience-3%2B_Years-green?style=for-the-badge" alt="Experience">
-        <img src="https://img.shields.io/badge/Client_Satisfaction-100%25-brightgreen?style=for-the-badge" alt="Satisfaction">
-    </div>
+---
 
-    <hr>
+## 🎓 Education
 
-    <!-- ===== SKILLS ===== -->
-    <h2>🚀 Tech Stack</h2>
+### 🏛️ BSCS (Bachelor of Science in Computer Science)
+**Education University, Lahore** · *2021 - Present*  
+*Seventh Semester*
 
-    <div class="skills-grid">
+Pursuing a comprehensive degree in Computer Science with focus on software engineering, web development, and modern programming paradigms.
 
-        <div class="skill-card">
-            <h4>🎨 Frontend</h4>
-            <p class="skill-desc">Building responsive and interactive user interfaces</p>
-            <div class="skill-tags">
-                <span>React</span>
-                <span>Next.js</span>
-                <span>TypeScript</span>
-                <span>Tailwind CSS</span>
-                <span>HTML5</span>
-                <span>CSS3</span>
-            </div>
-        </div>
+**Highlights:**
+- Active member of Computer Science Society
+- Participated in coding competitions
+- Developed multiple academic projects
 
-        <div class="skill-card">
-            <h4>⚙️ Backend</h4>
-            <p class="skill-desc">Creating robust server-side applications</p>
-            <div class="skill-tags">
-                <span>Node.js</span>
-                <span>Express.js</span>
-                <span>REST APIs</span>
-                <span>GraphQL</span>
-            </div>
-        </div>
+### 🏫 ICS (Intermediate in Computer Science)
+**Punjab College, Lahore** · *2019 - 2021*  
+*Completed*
 
-        <div class="skill-card">
-            <h4>🗄️ Databases</h4>
-            <p class="skill-desc">Designing and optimizing data structures</p>
-            <div class="skill-tags">
-                <span>MongoDB</span>
-                <span>Mongoose</span>
-                <span>PostgreSQL</span>
-                <span>Redis</span>
-            </div>
-        </div>
+Completed intermediate education with focus on Computer Science, Mathematics, and Physics, building a strong foundation for technical studies.
 
-        <div class="skill-card">
-            <h4>🔐 Auth & Security</h4>
-            <p class="skill-desc">Implementing secure user authentication</p>
-            <div class="skill-tags">
-                <span>JWT</span>
-                <span>OAuth</span>
-                <span>Google Auth</span>
-                <span>GitHub Auth</span>
-                <span>Bcrypt</span>
-            </div>
-        </div>
+**Highlights:**
+- Excellent academic performance
+- Strong foundation in programming basics
+- Active participation in tech events
 
-        <div class="skill-card">
-            <h4>📦 CMS & Platforms</h4>
-            <p class="skill-desc">Working with popular content management systems</p>
-            <div class="skill-tags">
-                <span>WordPress</span>
-                <span>Wix</span>
-                <span>Shopify</span>
-                <span>Webflow</span>
-            </div>
-        </div>
+### 🏫 Matriculation (Science Group)
+**Universal Public School, Lahore** · *2017 - 2019*  
+*Completed*
 
-        <div class="skill-card">
-            <h4>🛠️ Tools</h4>
-            <p class="skill-desc">Utilizing modern development workflows</p>
-            <div class="skill-tags">
-                <span>VS Code</span>
-                <span>Cursor</span>
-                <span>Git</span>
-                <span>GitHub</span>
-                <span>Docker</span>
-                <span>Postman</span>
-            </div>
-        </div>
+Completed secondary education with Science group, developing analytical thinking and problem-solving skills.
 
-    </div>
+**Highlights:**
+- Science fair participant
+- Mathematics excellence award
 
-    <hr>
 
-    <!-- ===== PROJECTS ===== -->
-    <h2>🏗️ Featured Projects</h2>
+## 📫 Let's Connect
 
-    <div class="projects-grid">
+I'm currently open to new opportunities, freelance projects, and collaborations. Let's discuss how I can help bring your ideas to life!
 
-        <div class="project-card">
-            <span class="featured">⭐ Featured</span>
-            <h3>🏢 COZONES</h3>
-            <p>A comprehensive coworking space rental platform where users can discover, book, and manage workspace rentals on hourly, daily, or monthly basis.</p>
-            <div class="tech-tags">
-                <span>React</span>
-                <span>Node.js</span>
-                <span>MongoDB</span>
-                <span>Express</span>
-            </div>
-            <div class="project-links">
-                <a href="#">🔗 Live Demo</a>
-                <a href="#">📂 Repository</a>
-            </div>
-        </div>
+<p align="center">
+  <a href="mailto:muhammadcaptain303@gmail.com">
+    <img src="https://img.shields.io/badge/Email-muhammadcaptain303%40gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email">
+  </a>
+  <a href="#">
+    <img src="https://img.shields.io/badge/Portfolio-Visit-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Portfolio">
+  </a>
+  <a href="https://github.com/your-username">
+    <img src="https://img.shields.io/badge/GitHub-Follow-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
+  </a>
+</p>
 
-        <div class="project-card">
-            <span class="featured">⭐ Featured</span>
-            <h3>🏗️ Prime Consultants</h3>
-            <p>A professional construction consultancy website featuring services showcase, project portfolio, and an innovative cost calculator.</p>
-            <div class="tech-tags">
-                <span>React</span>
-                <span>JavaScript</span>
-                <span>CSS</span>
-                <span>Node.js</span>
-            </div>
-            <div class="project-links">
-                <a href="#">🔗 Live Demo</a>
-                <a href="#">📂 Repository</a>
-            </div>
-        </div>
+<!-- ===== CONTACT TABLE ===== -->
+<table align="center">
+  <tr>
+    <td align="center">📧 <strong>Email</strong></td>
+    <td>muhammadcaptain303@gmail.com</td>
+  </tr>
+  <tr>
+    <td align="center">📱 <strong>Phone</strong></td>
+    <td>+92 327 409 7597</td>
+  </tr>
+  <tr>
+    <td align="center">📍 <strong>Location</strong></td>
+    <td>Lahore, Pakistan</td>
+  </tr>
+</table>
 
-        <div class="project-card">
-            <span class="featured">⭐ Featured</span>
-            <h3>📇 Card Scan Pro</h3>
-            <p>An AI-powered business card scanner application using Gemini API that automatically extracts and organizes contact information.</p>
-            <div class="tech-tags">
-                <span>React</span>
-                <span>Gemini API</span>
-                <span>OCR</span>
-                <span>Node.js</span>
-            </div>
-            <div class="project-links">
-                <a href="#">🔗 Live Demo</a>
-                <a href="#">📂 Repository</a>
-            </div>
-        </div>
+---
 
-        <div class="project-card">
-            <h3>🔍 Prime Assessment Services</h3>
-            <p>A comprehensive house inspection application with structured workflows for property assessments and detailed reporting.</p>
-            <div class="tech-tags">
-                <span>React</span>
-                <span>MongoDB</span>
-                <span>Express</span>
-                <span>Node.js</span>
-            </div>
-            <div class="project-links">
-                <a href="#">🔗 Live Demo</a>
-                <a href="#">📂 Repository</a>
-            </div>
-        </div>
+<!-- ===== FOOTER ===== -->
+<p align="center">
+  <i>"Building exceptional digital experiences, one line of code at a time."</i>
+</p>
 
-        <div class="project-card">
-            <h3>🏗️ Case Forte Global</h3>
-            <p>A building materials e-commerce platform with organized product catalogs and streamlined procurement workflows.</p>
-            <div class="tech-tags">
-                <span>WordPress</span>
-                <span>WooCommerce</span>
-                <span>PHP</span>
-                <span>MySQL</span>
-            </div>
-            <div class="project-links">
-                <a href="#">🔗 Live Demo</a>
-                <a href="#">📂 Repository</a>
-            </div>
-        </div>
+<p align="center">
+  Made with ❤️ by Muhammad
+</p>
 
-        <div class="project-card">
-            <h3>📌 More Projects</h3>
-            <p>Check out my GitHub repositories for more projects and contributions!</p>
-            <br>
-            <div class="project-links">
-                <a href="https://github.com/your-username?tab=repositories">
-                    <img src="https://img.shields.io/badge/View_All_Projects-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
-                </a>
-            </div>
-        </div>
-
-    </div>
-
-    <hr>
-
-    <!-- ===== EXPERIENCE ===== -->
-    <h2>💼 Experience</h2>
-
-    <div class="exp-item">
-        <h4>💻 Web Developer Intern</h4>
-        <div class="meta">Prime Consultants · Lahore, Pakistan · 2023 - Present</div>
-        <p>Working as a Web Developer Intern, responsible for developing and maintaining multiple client projects including construction consultancy platforms, coworking space marketplaces, and AI-powered applications.</p>
-        <ul>
-            <li><strong>COZONES</strong> - Coworking space rental platform</li>
-            <li><strong>Prime Consultants</strong> - Construction consultancy website</li>
-            <li><strong>Card Scan Pro</strong> - AI business card scanner</li>
-            <li><strong>Prime Assessment</strong> - House inspection application</li>
-        </ul>
-    </div>
-
-    <hr>
-
-    <!-- ===== EDUCATION ===== -->
-    <h2>🎓 Education</h2>
-
-    <div class="edu-item">
-        <h4>🏛️ BSCS (Bachelor of Science in Computer Science)</h4>
-        <div class="meta">Education University, Lahore · 2021 - Present · Seventh Semester</div>
-        <p>Pursuing a comprehensive degree in Computer Science with focus on software engineering, web development, and modern programming paradigms.</p>
-        <ul>
-            <li>Active member of Computer Science Society</li>
-            <li>Participated in coding competitions</li>
-            <li>Developed multiple academic projects</li>
-        </ul>
-    </div>
-
-    <div class="edu-item">
-        <h4>🏫 ICS (Intermediate in Computer Science)</h4>
-        <div class="meta">Punjab College, Lahore · 2019 - 2021 · Completed</div>
-        <p>Completed intermediate education with focus on Computer Science, Mathematics, and Physics, building a strong foundation for technical studies.</p>
-        <ul>
-            <li>Excellent academic performance</li>
-            <li>Strong foundation in programming basics</li>
-            <li>Active participation in tech events</li>
-        </ul>
-    </div>
-
-    <div class="edu-item">
-        <h4>🏫 Matriculation (Science Group)</h4>
-        <div class="meta">Universal Public School, Lahore · 2017 - 2019 · Completed</div>
-        <p>Completed secondary education with Science group, developing analytical thinking and problem-solving skills.</p>
-        <ul>
-            <li>Science fair participant</li>
-            <li>Mathematics excellence award</li>
-        </ul>
-    </div>
-
-    <hr>
-
-    <!-- ===== GITHUB STATS ===== -->
-    <h2>📊 GitHub Stats</h2>
-
-    <p align="center">
-        <img src="https://github-readme-stats.vercel.app/api?username=your-username&show_icons=true&theme=radical&hide_border=true" alt="GitHub Stats" width="48%">
-        <img src="https://github-readme-streak-stats.herokuapp.com/?user=your-username&theme=radical&hide_border=true" alt="GitHub Streak" width="48%">
-    </p>
-
-    <p align="center">
-        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=your-username&layout=compact&theme=radical&hide_border=true" alt="Top Languages" width="48%">
-    </p>
-
-    <hr>
-
-    <!-- ===== CONTACT ===== -->
-    <h2>📫 Let's Connect</h2>
-
-    <p style="text-align: center;">I'm currently open to new opportunities, freelance projects, and collaborations. Let's discuss how I can help bring your ideas to life!</p>
-
-    <div class="badge-container">
-        <a href="mailto:muhammadcaptain303@gmail.com">
-            <img src="https://img.shields.io/badge/Email-muhammadcaptain303%40gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email">
-        </a>
-        <a href="#">
-            <img src="https://img.shields.io/badge/Portfolio-Visit-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Portfolio">
-        </a>
-        <a href="https://github.com/your-username">
-            <img src="https://img.shields.io/badge/GitHub-Follow-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
-        </a>
-    </div>
-
-    <table class="contact-table">
-        <tr>
-            <td>📧 Email</td>
-            <td>muhammadcaptain303@gmail.com</td>
-        </tr>
-        <tr>
-            <td>📱 Phone</td>
-            <td>+92 327 409 7597</td>
-        </tr>
-        <tr>
-            <td>📍 Location</td>
-            <td>Lahore, Pakistan</td>
-        </tr>
-    </table>
-
-    <hr>
-
-    <!-- ===== QUOTE & FOOTER ===== -->
-    <div class="quote">
-        "Building exceptional digital experiences, one line of code at a time."
-    </div>
-
-    <div class="footer">
-        Made with <span class="heart">❤️</span> by Muhammad
-        <br>
-        <span style="font-size: 0.8rem; color: #555;">© 2026 · All Rights Reserved</span>
-    </div>
-
-</div>
-
-</body>
-</html>
+<p align="center">
+  <img src="https://img.shields.io/badge/Made_with-❤️-red?style=for-the-badge" alt="Made with love">
+</p>
