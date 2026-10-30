@@ -298,18 +298,3 @@ I'm currently open to new opportunities, freelance projects, and collaborations.
     <td>Lahore, Pakistan</td>
   </tr>
 </table>
-
----
-
-<!-- ===== FOOTER ===== -->
-<p align="center">
-  <i>"Building exceptional digital experiences, one line of code at a time."</i>
-</p>
-
-<p align="center">
-  Made with ❤️ by Muhammad
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Made_with-❤️-red?style=for-the-badge" alt="Made with love">
-</p>
